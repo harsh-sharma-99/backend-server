@@ -11,7 +11,21 @@ const server = http.createServer((req, res) => {
     res.write('<h1> Hi we did it! </h1>');
     res.write('<h3> Lets Rock </h3>');
 
-    fs.readFile('./views/index.html', (err, file) => {
+    let path = "./views"
+
+    switch (req.url) {
+        case "/":
+            path += "/index.html"
+            break;
+        case "/about":
+            path += "/about.html"
+            break;
+    
+        default:
+            path += "/404.html"
+            break;
+    }
+    fs.readFile(path, (err, file) => {
         if(err){
             console.log("====error===", err);
         }else{
